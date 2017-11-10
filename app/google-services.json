@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "756928965996",
+    "firebase_url": "https://shopinterio-master.firebaseio.com",
+    "project_id": "shopinterio-master",
+    "storage_bucket": "shopinterio-master.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:756928965996:android:ac67a83a1df1adef",
+        "android_client_info": {
+          "package_name": "com.example.application.shopinterio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "756928965996-dire0kgqb3dlb5mkhfl37df7t88f2hhq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.application.shopinterio",
+            "certificate_hash": "39198ae89ace4986dc1ad9f7a6a2a96b5ec6a043"
+          }
+        },
+        {
+          "client_id": "756928965996-dattc6fouielb53lrhjph4aj7q1nj29e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTXzakPwnV_Wkjry8flHQe42czW8PrgrA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "756928965996-dattc6fouielb53lrhjph4aj7q1nj29e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
