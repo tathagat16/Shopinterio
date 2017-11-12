@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_attendance"
+        android:title="Attendance Punch"
+        android:icon="@drawable/ic_menu_camera"/>
+    <item
+        android:id="@+id/nav_shareLocation"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="Share Location" />
+
+    <item
+        android:id="@+id/nav_catalogue"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="Catalogue" />
+
+    <item
+        android:id="@+id/nav_meetingReminders"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="Meeting Reminders" />
+
+    <item
+        android:id="@+id/nav_quotation"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="Send Quotation" />
+
+    <item
+        android:id="@+id/nav_visitingCards"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="Visiting Cards" />
+
+    <item
+        android:id="@+id/nav_meetingDetails"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="Meeting Details" />
+
+    <item
+        android:id="@+id/nav_locationReport"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="Locations Report" />
+
+    <item
+        android:id="@+id/nav_workReport"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="Work Report" />
+
+    <item
+        android:id="@+id/nav_signout"
+        android:icon="@drawable/ic_menu_slideshow"
+        android:title="Sign Out" />
+
+
+</menu>

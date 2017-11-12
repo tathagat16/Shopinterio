@@ -1,10 +1,5 @@
 package com.example.application.shopinterio.AccountActivity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import com.example.application.shopinterio.R;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +14,6 @@ import com.example.application.shopinterio.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class resetPassword extends AppCompatActivity {
 
