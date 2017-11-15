@@ -3,6 +3,9 @@ package Fragments;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.icu.text.DateFormat;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -35,6 +38,20 @@ import com.example.application.shopinterio.GpsLocation;
 import com.example.application.shopinterio.MainActivity;
 import com.example.application.shopinterio.MapsActivity;
 import com.example.application.shopinterio.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+//import com.google.firebase.firestore.DocumentReference;
+//import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 
 /**
@@ -50,7 +67,7 @@ public class Attendance extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private Button b;
+    private Button b,b2;
     private TextView t;
     private LocationManager locationManager;
     private LocationListener listener;
@@ -100,12 +117,16 @@ public class Attendance extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)  {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_attendance, container, false);
 
 
         b = (Button) view.findViewById (R.id.button);
+        b2 = (Button) view.findViewById (R.id.button2);
+
+
+
 
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,20 +138,112 @@ public class Attendance extends Fragment {
                 if( l == null){
                     Toast.makeText(getActivity().getApplicationContext(),"GPS unable to get Value",Toast.LENGTH_SHORT).show();
                 }else {
-                    double lat = l.getLatitude();
-                    double lon = l.getLongitude();
+                     lat = l.getLatitude();
+                     lon = l.getLongitude();
                     Intent sendingIntent = new Intent(getActivity(),MapsActivity.class);
                     sendingIntent.putExtra("lat", lat);
                     sendingIntent.putExtra("long",lon);
-                  // Toast.makeText(getActivity(),"GPS Lat = "+lat+"\n lon = "+lon,Toast.LENGTH_LONG).show();
+                   //Toast.makeText(getActivity(),"GPS Lat = "+lat+"\n lon = "+lon,Toast.LENGTH_LONG).show();
 
                     startActivity(sendingIntent);
+
+                    // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                   // currentUserDB.child("Lattitude").setValue(lat);
+                    //currentUserDB.child("Longitude").setValue(lon);
                     //Toast.makeText(getApplicationContext(),"GPS Lat = "+lat+"\n lon = "+lon,Toast.LENGTH_LONG).show();
+
                 }
             }
         });
-return view;
 
+        b2.setOnClickListener(new View.OnClickListener() {
+                                 @Override
+                                 public void onClick(View v) {
+                                     GpsLocation gt = new GpsLocation(getActivity());
+
+                                     Location l = gt.getLocation();
+                                    double lat = l.getLatitude();
+                                     double lon = l.getLongitude();
+
+                                     try {
+                                         getAddress(lat, lon);
+                                         Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
+                                     } catch (Exception e) {
+                                         e.printStackTrace();
+                                     }
+
+
+
+                                 }});
+        return view;
+
+    }
+
+    public  void getAddress(double lat,double lon) throws IOException{
+
+        // Toast.makeText(getActivity(),"inside func  : "+lat+" ," +lon,Toast.LENGTH_LONG).show();
+
+
+        // Toast.makeText(getActivity(),"Inside func",Toast.LENGTH_SHORT).show();
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+        FirebaseAuth mAuth= FirebaseAuth.getInstance();
+        DatabaseReference currentUserDB = mDatabase.child(mAuth.getCurrentUser().getUid());
+
+
+       // DocumentReference mDocRef = FirebaseFirestore.getInstance().document("/Attendance/gX5HcJAZUKistr4JC8mn");
+
+
+
+       // Toast.makeText(getActivity(),"inside func  : "+lat+" ," +lon,Toast.LENGTH_LONG).show();
+
+        Geocoder geocoder;
+        geocoder = new Geocoder(getContext(), Locale.getDefault());
+
+
+        List<Address> addresses = geocoder.getFromLocation(lat,lon,1);
+
+        String result = addresses.get(0).getAddressLine(0);
+
+        String address = addresses.get(0).getAddressLine(0);
+        //Toast.makeText(getActivity(),"add : "+address,Toast.LENGTH_LONG).show();
+// If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+        String city = addresses.get(0).getLocality();
+        String state = addresses.get(0).getAdminArea();
+        String country = addresses.get(0).getCountryName();
+        String postalCode = addresses.get(0).getPostalCode();
+        String knownName = addresses.get(0).getFeatureName();
+
+        String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+
+        String store = address +", "+city +", "+ state;
+/*
+        Map<String, Object> dataToSave = new HashMap<String, Object>();
+        dataToSave.put("location",store);
+        dataToSave.put("time",currentDateTimeString);
+        mDocRef.set(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+*/
+
+        currentUserDB.child("Time").setValue(currentDateTimeString);
+        currentUserDB.child("Location").setValue(store);
+        currentUserDB.child("Name").setValue(mAuth.getCurrentUser().getEmail());
+        Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
+
+        /*
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.setTimeZone(TimeZone.getDefault());
+        return dateFormat.format(new Date());
+         */
 
     }
 
@@ -169,3 +282,6 @@ return view;
     }
 }
 
+/*
+
+ */

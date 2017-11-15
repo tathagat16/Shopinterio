@@ -7,12 +7,14 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.application.shopinterio.MainActivity;
 import com.example.application.shopinterio.R;
@@ -30,9 +32,15 @@ import Fragments.SignOut;
 import Fragments.VisitingCards;
 import Fragments.WorkReport;
 
+import static com.example.application.shopinterio.R.id.auto;
 import static com.example.application.shopinterio.R.id.drawer;
+import static com.example.application.shopinterio.R.id.email;
+import static com.example.application.shopinterio.R.id.nav_attendance;
+import static com.example.application.shopinterio.R.id.nv;
+
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class DrawerLayout extends AppCompatActivity {
 
@@ -40,16 +48,23 @@ public class DrawerLayout extends AppCompatActivity {
     private ActionBarDrawerToggle mToggle;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
+    private DatabaseReference databaseReference;
+    private TextView t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer_layout);
 
-
         auth = FirebaseAuth.getInstance();
 
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+        t=(TextView) findViewById(R.id.mail);
+        String s = auth.getCurrentUser().getEmail();
+
+        t.setText(s);
 
 
         authListener = new FirebaseAuth.AuthStateListener() {
@@ -69,10 +84,11 @@ public class DrawerLayout extends AppCompatActivity {
         mDrawerLayout = (android.support.v4.widget.DrawerLayout) findViewById(drawer);
         mToggle= new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
-       NavigationView nvDrawer= (NavigationView) findViewById(R.id.nv);
+       NavigationView nvDrawer= (NavigationView) findViewById(nv);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
        setupDrawerContent(nvDrawer);
+
 
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -81,7 +97,11 @@ public class DrawerLayout extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
         }
 
+
+
+
     }
+
 
     public void selectItemDrawer(MenuItem menuItem){
         Fragment myFragment =null;
@@ -128,7 +148,7 @@ public class DrawerLayout extends AppCompatActivity {
                 fragmentClass= SignOut.class;
                 break;
             default:
-                fragmentClass=ShareLocation.class;
+                fragmentClass=Attendance.class;
         }
 
         try{
@@ -184,6 +204,5 @@ public class DrawerLayout extends AppCompatActivity {
         }
 
     };
-
 
 }

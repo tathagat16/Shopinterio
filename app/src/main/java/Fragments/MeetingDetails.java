@@ -1,12 +1,17 @@
 package Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.application.shopinterio.R;
 
@@ -65,7 +70,56 @@ public class MeetingDetails extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_meeting_details, container, false);
+        View view= inflater.inflate(R.layout.fragment_meeting_details, container, false);
+
+        final EditText your_name        = (EditText) view.findViewById(R.id.your_name);
+        final EditText client_name       = (EditText) view.findViewById(R.id.client_name);
+        final EditText meeting_venue     = (EditText) view.findViewById(R.id.meeting_venue);
+        final EditText remarks     = (EditText) view.findViewById(R.id.remarks);
+
+
+        Button email = (Button) view.findViewById(R.id.confirm);
+        email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String name      = your_name.getText().toString();
+                String client     = client_name.getText().toString();
+                String venue   = meeting_venue.getText().toString();
+                String details   = remarks.getText().toString();
+
+
+                if (TextUtils.isEmpty(name)){
+                    your_name.setError("Enter Your Name");
+                    your_name.requestFocus();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(client)){
+                    client_name.setError("Enter Client Name");
+                    client_name.requestFocus();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(venue)){
+                    meeting_venue.setError("Enter Meeting Venue");
+                    meeting_venue.requestFocus();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(details)){
+                    remarks.setError("Enter Remarks");
+                    remarks.requestFocus();
+                    return;
+                }
+
+                Toast.makeText(getActivity(),"Successfully added , yet to be stored!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

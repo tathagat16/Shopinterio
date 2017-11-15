@@ -5,10 +5,41 @@
     tools:context="Fragments.VisitingCards">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="60sp"
-        android:text="Visiting Card Fragment" />
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:orientation="vertical"
+     android:layout_height="match_parent">
+
+        <Button
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:text="Browse card to upload"
+             android:id="@+id/btnGallery" />
+
+     <ImageView
+         android:layout_width="300dp"
+         android:layout_height="300dp"
+         android:layout_gravity="center"
+         android:id="@+id/image" />
+     
+     <EditText
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:id="@+id/txt"
+         android:hint="Client Name"/>
+
+     <Button
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="Upload Visiting Card"
+         android:id="@+id/btnUpload"/>
+
+     <Button
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="Show all Visiting Card"
+         android:id="@+id/btnShow"/>
+
+ </LinearLayout>
 
 </FrameLayout>
