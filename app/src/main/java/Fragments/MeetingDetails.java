@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,6 +15,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.application.shopinterio.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -113,7 +121,27 @@ public class MeetingDetails extends Fragment {
                     return;
                 }
 
-                Toast.makeText(getActivity(),"Successfully added , yet to be stored!", Toast.LENGTH_SHORT).show();
+                DocumentReference mDocRef = FirebaseFirestore.getInstance().document("meetingDetails/B7HQqdsqmgV2Tb7kwyya/allShared/vveE2TolnpmnSL4oGiLZ\n");
+
+                Map<String, Object> dataToSave = new HashMap<String, Object>();
+                dataToSave.put("clientName",client);
+                dataToSave.put("meetingVenue",venue);
+                dataToSave.put("remarks",details);
+                dataToSave.put("yourName",name);
+                mDocRef.set(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+
 
             }
         });

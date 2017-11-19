@@ -5,10 +5,35 @@
     tools:context="Fragments.WorkReport">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="60sp"
-        android:text="Work Report Fragment" />
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fetch"
+                android:layout_centerInParent="true"
+                android:padding="20dp"
+                android:id="@+id/fetch"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="20dp"
+                android:layout_below="@id/fetch"
+                android:id="@+id/tv"/>
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
 
 </FrameLayout>

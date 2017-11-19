@@ -43,8 +43,20 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 //import com.google.firebase.firestore.DocumentReference;
 //import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import java.io.IOException;
 import java.util.Date;
@@ -52,6 +64,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 
 /**
@@ -71,7 +85,6 @@ public class Attendance extends Fragment {
     private TextView t;
     private LocationManager locationManager;
     private LocationListener listener;
-    double lat,lon;
 
 
     // TODO: Rename and change types of parameters
@@ -123,7 +136,7 @@ public class Attendance extends Fragment {
 
 
         b = (Button) view.findViewById (R.id.button);
-        b2 = (Button) view.findViewById (R.id.button2);
+      //  b2 = (Button) view.findViewById (R.id.button2);
 
 
 
@@ -136,66 +149,51 @@ public class Attendance extends Fragment {
 
                 Location l = gt.getLocation();
                 if( l == null){
-                    Toast.makeText(getActivity().getApplicationContext(),"GPS unable to get Value",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(),"GPS unable to get Value. Please open GPS in High Accuracy mode",Toast.LENGTH_SHORT).show();
                 }else {
-                     lat = l.getLatitude();
-                     lon = l.getLongitude();
+                     double lat = l.getLatitude();
+                     double lon = l.getLongitude();
+
+                   //Toast.makeText(getActivity(),"GPS Lat = "+lat+"\n lon = "+lon,Toast.LENGTH_LONG).show();
+
                     Intent sendingIntent = new Intent(getActivity(),MapsActivity.class);
                     sendingIntent.putExtra("lat", lat);
                     sendingIntent.putExtra("long",lon);
-                   //Toast.makeText(getActivity(),"GPS Lat = "+lat+"\n lon = "+lon,Toast.LENGTH_LONG).show();
-
                     startActivity(sendingIntent);
 
-                    // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-                   // currentUserDB.child("Lattitude").setValue(lat);
-                    //currentUserDB.child("Longitude").setValue(lon);
-                    //Toast.makeText(getApplicationContext(),"GPS Lat = "+lat+"\n lon = "+lon,Toast.LENGTH_LONG).show();
+                    try {
+                        getAddress(lat, lon);
+                        Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+
 
                 }
             }
         });
 
-        b2.setOnClickListener(new View.OnClickListener() {
-                                 @Override
-                                 public void onClick(View v) {
-                                     GpsLocation gt = new GpsLocation(getActivity());
 
-                                     Location l = gt.getLocation();
-                                    double lat = l.getLatitude();
-                                     double lon = l.getLongitude();
-
-                                     try {
-                                         getAddress(lat, lon);
-                                         Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
-                                     } catch (Exception e) {
-                                         e.printStackTrace();
-                                     }
-
-
-
-                                 }});
         return view;
 
     }
 
     public  void getAddress(double lat,double lon) throws IOException{
 
-        // Toast.makeText(getActivity(),"inside func  : "+lat+" ," +lon,Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Function called with value" + lat + ", " +lon, Toast.LENGTH_LONG).show();
 
 
-        // Toast.makeText(getActivity(),"Inside func",Toast.LENGTH_SHORT).show();
+      //  DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+       // FirebaseAuth mAuth= FirebaseAuth.getInstance();
+        // DatabaseReference currentUserDB = mDatabase.child(mAuth.getCurrentUser().getUid());
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
-        FirebaseAuth mAuth= FirebaseAuth.getInstance();
-        DatabaseReference currentUserDB = mDatabase.child(mAuth.getCurrentUser().getUid());
+         DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("Attendance").document("gX5HcJAZUKistr4JC8mn");
 
+        Toast.makeText(getActivity(), "Document found", Toast.LENGTH_SHORT).show();
 
-       // DocumentReference mDocRef = FirebaseFirestore.getInstance().document("/Attendance/gX5HcJAZUKistr4JC8mn");
-
-
-
-       // Toast.makeText(getActivity(),"inside func  : "+lat+" ," +lon,Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),"inside func  : "+lat+" ," +lon,Toast.LENGTH_LONG).show();
 
         Geocoder geocoder;
         geocoder = new Geocoder(getContext(), Locale.getDefault());
@@ -217,7 +215,7 @@ public class Attendance extends Fragment {
         String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
 
         String store = address +", "+city +", "+ state;
-/*
+
         Map<String, Object> dataToSave = new HashMap<String, Object>();
         dataToSave.put("location",store);
         dataToSave.put("time",currentDateTimeString);
@@ -232,14 +230,14 @@ public class Attendance extends Fragment {
                 Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
             }
         });
-*/
 
+/*
         currentUserDB.child("Time").setValue(currentDateTimeString);
         currentUserDB.child("Location").setValue(store);
         currentUserDB.child("Name").setValue(mAuth.getCurrentUser().getEmail());
         Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
 
-        /*
+
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         dateFormat.setTimeZone(TimeZone.getDefault());
         return dateFormat.format(new Date());
@@ -259,6 +257,8 @@ public class Attendance extends Fragment {
         super.onAttach(context);
 
     }
+
+
 
     @Override
     public void onDetach() {

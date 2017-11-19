@@ -7,8 +7,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.application.shopinterio.R;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,7 +71,36 @@ public class WorkReport extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_work_report, container, false);
+
+
+        View view =inflater.inflate(R.layout.fragment_location_report, container, false);
+
+        Button bt1 = (Button) view.findViewById(R.id.fetch);
+
+        final TextView tv;
+        tv=view.findViewById(R.id.tv);
+
+        bt1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DocumentReference mDocRef = FirebaseFirestore.getInstance().document("meetingDetails/B7HQqdsqmgV2Tb7kwyya/allShared/vveE2TolnpmnSL4oGiLZ\n");
+
+                mDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if(documentSnapshot.exists()){
+                            String client = (String) documentSnapshot.get("clientName");
+                            String venue = (String) documentSnapshot.get("meetingVenue");
+                            String remarks = (String) documentSnapshot.get("remarks");
+                            String namae = (String) documentSnapshot.get("yourName");
+
+                            tv.setText(client + "\n" + venue + "\n" + remarks + "\n" + namae );
+                        }
+                    }
+                });
+            }
+        });
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
