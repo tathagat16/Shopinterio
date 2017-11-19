@@ -38,11 +38,14 @@ import com.example.application.shopinterio.GpsLocation;
 import com.example.application.shopinterio.MainActivity;
 import com.example.application.shopinterio.MapsActivity;
 import com.example.application.shopinterio.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 //import com.google.firebase.firestore.DocumentReference;
@@ -182,18 +185,18 @@ public class Attendance extends Fragment {
 
     public  void getAddress(double lat,double lon) throws IOException{
 
-        Toast.makeText(getActivity(), "Function called with value" + lat + ", " +lon, Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Function called with value" + lat + ", " +lon, Toast.LENGTH_SHORT).show();
 
 
       //  DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
-       // FirebaseAuth mAuth= FirebaseAuth.getInstance();
+        FirebaseAuth mAuth= FirebaseAuth.getInstance();
         // DatabaseReference currentUserDB = mDatabase.child(mAuth.getCurrentUser().getUid());
 
-         DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("Attendance").document("gX5HcJAZUKistr4JC8mn");
-
+        // DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("Attendance").document("gX5HcJAZUKistr4JC8mn");
+        CollectionReference mColRef = FirebaseFirestore.getInstance().collection("Attendance");
         Toast.makeText(getActivity(), "Document found", Toast.LENGTH_SHORT).show();
 
-        Toast.makeText(getActivity(),"inside func  : "+lat+" ," +lon,Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),"inside func  : "+lat+" ," +lon,Toast.LENGTH_SHORT).show();
 
         Geocoder geocoder;
         geocoder = new Geocoder(getContext(), Locale.getDefault());
@@ -211,6 +214,7 @@ public class Attendance extends Fragment {
         String country = addresses.get(0).getCountryName();
         String postalCode = addresses.get(0).getPostalCode();
         String knownName = addresses.get(0).getFeatureName();
+        String email = mAuth.getCurrentUser().getEmail();
 
         String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
 
@@ -219,17 +223,21 @@ public class Attendance extends Fragment {
         Map<String, Object> dataToSave = new HashMap<String, Object>();
         dataToSave.put("location",store);
         dataToSave.put("time",currentDateTimeString);
-        mDocRef.set(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
+       // mDocRef.set(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>()
+
+        mColRef.document(email).set(dataToSave).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onSuccess(Void aVoid) {
+            public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+
             }
         });
+        }
 
 /*
         currentUserDB.child("Time").setValue(currentDateTimeString);
@@ -243,7 +251,7 @@ public class Attendance extends Fragment {
         return dateFormat.format(new Date());
          */
 
-    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.application.shopinterio.R;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -85,7 +86,9 @@ public class LocationReport extends Fragment {
         bt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("Attendance").document("gX5HcJAZUKistr4JC8mn");
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                String email = mAuth.getCurrentUser().getEmail();
+                DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("Attendance").document(email);
 
 
 

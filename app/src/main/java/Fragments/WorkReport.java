@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.application.shopinterio.R;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -83,7 +84,10 @@ public class WorkReport extends Fragment {
         bt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DocumentReference mDocRef = FirebaseFirestore.getInstance().document("meetingDetails/B7HQqdsqmgV2Tb7kwyya/allShared/vveE2TolnpmnSL4oGiLZ\n");
+
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                String email = mAuth.getCurrentUser().getEmail();
+                DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("meetingDetails").document(email);
 
                 mDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override

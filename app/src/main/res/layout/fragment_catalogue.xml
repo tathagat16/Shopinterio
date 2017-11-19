@@ -18,13 +18,23 @@
             android:textSize="20dp"
             android:textStyle="bold" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/catalogue"
+            android:layout_centerVertical="true"
+            android:layout_below="@id/text1"
+            android:contentDescription=""
+            tools:ignore="ContentDescription" />
+
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
             android:text="Website"
             android:textSize="20dp" />
     </RelativeLayout>

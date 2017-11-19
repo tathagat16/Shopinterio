@@ -15,8 +15,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.application.shopinterio.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -121,25 +125,30 @@ public class MeetingDetails extends Fragment {
                     return;
                 }
 
-                DocumentReference mDocRef = FirebaseFirestore.getInstance().document("meetingDetails/B7HQqdsqmgV2Tb7kwyya/allShared/vveE2TolnpmnSL4oGiLZ\n");
+               // DocumentReference mDocRef = FirebaseFirestore.getInstance().document("meetingDetails/B7HQqdsqmgV2Tb7kwyya/allShared/vveE2TolnpmnSL4oGiLZ\n");
+                CollectionReference mColRef = FirebaseFirestore.getInstance().collection("meetingDetails");
+
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                String email = mAuth.getCurrentUser().getEmail();
 
                 Map<String, Object> dataToSave = new HashMap<String, Object>();
                 dataToSave.put("clientName",client);
                 dataToSave.put("meetingVenue",venue);
                 dataToSave.put("remarks",details);
                 dataToSave.put("yourName",name);
-                mDocRef.set(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
+                mColRef.document(email).set(dataToSave).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onSuccess(Void aVoid) {
+                    public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
+
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Failure", Toast.LENGTH_SHORT).show();
+
                     }
                 });
-
 
 
 
