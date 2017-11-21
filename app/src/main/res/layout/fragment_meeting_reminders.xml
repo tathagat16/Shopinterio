@@ -5,8 +5,33 @@
     tools:context="Fragments.MeetingReminders">
 
     <!-- TODO: Update blank fragment layout -->
-   <CalendarView
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"></CalendarView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+<CalendarView
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/cal"
+    android:padding="20dp">
+</CalendarView>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:textAlignment="center"
+            android:padding="5dp"
+            android:layout_below="@id/cal"
+            android:text="We are not having Reminders in our App right now . Please goto Calender and View reminders"
+            android:layout_height="wrap_content" />
+
+<Button
+    android:layout_width="wrap_content"
+    android:textAlignment="center"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_alignParentBottom="true"
+    android:id="@+id/calender"
+    android:padding="5dp"
+    android:text="Calender"/>
+</RelativeLayout>
 </FrameLayout>
