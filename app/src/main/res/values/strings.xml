@@ -1,6 +1,20 @@
 <resources>
     <string name="app_name">ShopInterio</string>
     <string name="action_sign_in_short">Register</string>
+    <string name="create_pdf">Create PDF</string>
+    <string name="enter_text">Client Name</string>
+    <string name="contact">Contact</string>
+    <string name="emailEnter">Email</string>
+    <string name="subject">Subject</string>
+    <string name="Tax_option">Select Tax</string>
+
+
+    <string-array name="Tax">
+        <item>Select Tax</item>
+        <item>18%</item>
+        <item>28%</item>
+
+    </string-array>
     <string name="email">Email</string>
     <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
     <string name="auth_failed">Authentication failed, check your email and password or sign up</string>

@@ -193,7 +193,8 @@ public class Attendance extends Fragment {
         // DatabaseReference currentUserDB = mDatabase.child(mAuth.getCurrentUser().getUid());
 
         // DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("Attendance").document("gX5HcJAZUKistr4JC8mn");
-        CollectionReference mColRef = FirebaseFirestore.getInstance().collection("Attendance");
+        String email = mAuth.getCurrentUser().getEmail();
+        DocumentReference mColRef = FirebaseFirestore.getInstance().collection("Attendance").document(email);
         Toast.makeText(getActivity(), "Document found", Toast.LENGTH_SHORT).show();
 
         Toast.makeText(getActivity(),"inside func  : "+lat+" ," +lon,Toast.LENGTH_SHORT).show();
@@ -214,7 +215,7 @@ public class Attendance extends Fragment {
         String country = addresses.get(0).getCountryName();
         String postalCode = addresses.get(0).getPostalCode();
         String knownName = addresses.get(0).getFeatureName();
-        String email = mAuth.getCurrentUser().getEmail();
+
 
         String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
 
@@ -225,7 +226,7 @@ public class Attendance extends Fragment {
         dataToSave.put("time",currentDateTimeString);
        // mDocRef.set(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>()
 
-        mColRef.document(email).set(dataToSave).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mColRef.collection("all").document().set(dataToSave).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();

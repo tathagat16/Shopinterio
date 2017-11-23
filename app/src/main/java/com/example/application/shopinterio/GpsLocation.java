@@ -4,6 +4,8 @@ package com.example.application.shopinterio;
  * Created by nishc on 11/13/2017.
  */
 
+import android.*;
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -29,26 +31,51 @@ public class GpsLocation implements LocationListener {
     }
 
     public Location getLocation(){
-        if (ContextCompat.checkSelfPermission( context, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission( context, Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
             Log.e("fist","error");
             return null;
         }
         try {
             LocationManager lm = (LocationManager) context.getSystemService(LOCATION_SERVICE);
             boolean isGPSEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-            if (isGPSEnabled){
+
+            Location loc;
+
+
                 lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 6000,10,this);
-                Location loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                return loc;
-            }else{
-                Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                this.context.startActivity(i);
-                Log.e("sec","errpr");
-            }
+                 loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                 if(loc!=null) {
+                     Toast.makeText(context, "GPS", Toast.LENGTH_LONG).show();
+                     return loc;
+                 }
+
+
+                lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 6000, 0, this);
+                loc=lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                if(loc!=null)
+                {
+                    Toast.makeText(context,"Network",Toast.LENGTH_LONG).show();
+                    return loc;
+                }
+
+              lm.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER,0,0,this);
+                loc=lm.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+                if(loc!=null)
+                {
+                    Toast.makeText(context,"Passive",Toast.LENGTH_LONG).show();
+                    return loc;
+                }
+                if(!isGPSEnabled) {
+                    Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    this.context.startActivity(i);
+                    Log.e("sec", "errpr");
+                }
+
         }catch (Exception e){
             e.printStackTrace();
         }
         return null;
+
     }
 
     @Override

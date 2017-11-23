@@ -18,10 +18,17 @@ import com.google.firebase.auth.FirebaseUser;
 
 import static com.example.application.shopinterio.R.id.progressBar;
 
+/**
+ *
+ *
+ */
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

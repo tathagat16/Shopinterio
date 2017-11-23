@@ -96,7 +96,7 @@ public class MeetingDetails extends Fragment {
             public void onClick(View v) {
 
                 String name      = your_name.getText().toString();
-                String client     = client_name.getText().toString();
+                final String client     = client_name.getText().toString();
                 String venue   = meeting_venue.getText().toString();
                 String details   = remarks.getText().toString();
 
@@ -124,22 +124,27 @@ public class MeetingDetails extends Fragment {
                     remarks.requestFocus();
                     return;
                 }
-
-               // DocumentReference mDocRef = FirebaseFirestore.getInstance().document("meetingDetails/B7HQqdsqmgV2Tb7kwyya/allShared/vveE2TolnpmnSL4oGiLZ\n");
-                CollectionReference mColRef = FirebaseFirestore.getInstance().collection("meetingDetails");
-
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
                 String email = mAuth.getCurrentUser().getEmail();
+
+               // DocumentReference mDocRef = FirebaseFirestore.getInstance().document("meetingDetails/B7HQqdsqmgV2Tb7kwyya/allShared/vveE2TolnpmnSL4oGiLZ\n");
+                DocumentReference mColRef = FirebaseFirestore.getInstance().collection("meetingDetails").document(email);
+
+
 
                 Map<String, Object> dataToSave = new HashMap<String, Object>();
                 dataToSave.put("clientName",client);
                 dataToSave.put("meetingVenue",venue);
                 dataToSave.put("remarks",details);
                 dataToSave.put("yourName",name);
-                mColRef.document(email).set(dataToSave).addOnCompleteListener(new OnCompleteListener<Void>() {
+                mColRef.collection("all").document().set(dataToSave).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
+                        your_name.setText("");
+                        client_name.setText("");
+                        meeting_venue.setText("");
+                        remarks.setText("");
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {

@@ -31,7 +31,7 @@
                 android:layout_below="@id/fetch"
                 android:fontFamily="sans-serif-smallcaps"
                 android:padding="10dp"
-                android:text="Olive Street NIIT University Neemrana 301705 21 November 2017 8:53 PM\n\nSarojini Nagar Market New Delhi 110055 20 November 2017 7:00 AM"
+                android:text=" "
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp" />
 

@@ -3,6 +3,7 @@ package Fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.application.shopinterio.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +34,7 @@ public class WorkReport extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    StringBuilder data =new StringBuilder();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -74,12 +79,12 @@ public class WorkReport extends Fragment {
         // Inflate the layout for this fragment
 
 
-        View view =inflater.inflate(R.layout.fragment_location_report, container, false);
+        View v =inflater.inflate(R.layout.fragment_location_report, container, false);
 
-        Button bt1 = (Button) view.findViewById(R.id.fetch);
+        Button bt1 = (Button) v.findViewById(R.id.fetch);
 
         final TextView tv;
-        tv=view.findViewById(R.id.tv);
+        tv=v.findViewById(R.id.tv);
 
         bt1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,23 +94,29 @@ public class WorkReport extends Fragment {
                 String email = mAuth.getCurrentUser().getEmail();
                 DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("meetingDetails").document(email);
 
-                mDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if(documentSnapshot.exists()){
-                            String client = (String) documentSnapshot.get("clientName");
-                            String venue = (String) documentSnapshot.get("meetingVenue");
-                            String remarks = (String) documentSnapshot.get("remarks");
-                            String namae = (String) documentSnapshot.get("yourName");
 
-                            tv.setText(client + "\n" + venue + "\n" + remarks + "\n" + namae );
+                mDocRef.collection("all").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                                    data.setLength(0);
+                            for (DocumentSnapshot doc : task.getResult()) {
+                                data.append("Meeting by: ").append(doc.getString("yourName")).append("\nClient: ").append(doc.getString("clientName")).append("\nVenue: ").append(doc.getString("meetingVenue")).append("\nRemarks: ").append(doc.getString("remarks")).append("\n\n\n");
+
+                            }
+
+
+                            tv.setText(data);
+
                         }
                     }
                 });
+
             }
         });
-        return view;
+    return v;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
