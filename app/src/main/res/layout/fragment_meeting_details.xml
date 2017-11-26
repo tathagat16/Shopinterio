@@ -22,7 +22,7 @@
                 android:text="Your Name"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary"
-                android:textSize="12sp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/your_name"
@@ -40,7 +40,7 @@
                 android:text="Client Name"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary"
-                android:textSize="12sp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/client_name"
@@ -59,7 +59,7 @@
                 android:text="Meeting Venue"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary"
-                android:textSize="12sp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/meeting_venue"
@@ -77,7 +77,7 @@
                 android:text="Remarks"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary"
-                android:textSize="12sp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/remarks"
