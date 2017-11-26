@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -120,7 +121,7 @@ public class SendQuotation extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    Button createPdf;
     private OnFragmentInteractionListener mListener;
 
     public SendQuotation() {
@@ -160,27 +161,27 @@ public class SendQuotation extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_send_quotation, container, false);
+        final View v= inflater.inflate(R.layout.fragment_send_quotation, container, false);
         description =new ArrayList<String>();
         thickness = new ArrayList<String >();
         color = new ArrayList<String>();
         qty = new ArrayList<String>();
         rate = new ArrayList<String>();
         amount = new ArrayList<String>();
-        final Spinner spin = (Spinner) view.findViewById(R.id.taxSelect);
-       final EditText Desc = (EditText) view.findViewById(R.id.description);
-       final EditText Thk = (EditText) view.findViewById(R.id.thk);
-       final EditText Color = (EditText) view.findViewById(R.id.color);
-       final EditText quty = (EditText) view.findViewById(R.id.qty);
-        final EditText ratE = (EditText) view.findViewById(R.id.rate);
+        final Spinner spin = (Spinner) v.findViewById(R.id.taxSelect);
+       final EditText Desc = (EditText) v.findViewById(R.id.description);
+       final EditText Thk = (EditText) v.findViewById(R.id.thk);
+       final EditText Color = (EditText) v.findViewById(R.id.color);
+       final EditText quty = (EditText) v.findViewById(R.id.qty);
+        final EditText ratE = (EditText) v.findViewById(R.id.rate);
         //  EditText amt = (EditText) findViewById(R.id.amt);
 
         timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ROOT).format(new Date());
         docname = "Quotation" + timeStamp + ".pdf";
+        createPdf = v.findViewById(R.id.buttonCreatePdf);
 
 
-
-        Button btn = (Button) view.findViewById(R.id.addData);
+        Button btn = (Button) v.findViewById(R.id.addData);
 
 
 
@@ -206,6 +207,13 @@ public class SendQuotation extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        createPdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createPDF(v);
             }
         });
 
@@ -251,7 +259,7 @@ public class SendQuotation extends Fragment {
             }
         });
 
-return view;
+return v;
     }
 
 
@@ -386,11 +394,26 @@ return view;
             e.printStackTrace();
         }
 
-
+viewPdf(outPath,docname);
     }
 
 
+public void viewPdf(String outPath,String docname){
+        String s=outPath + "/" +docname;
+    StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+    StrictMode.setVmPolicy(builder.build());
+    File targetFile = new File(s);
+    Uri targetUri = Uri.fromFile(targetFile);
 
+
+    Intent intent;
+    intent = new Intent(Intent.ACTION_VIEW);
+    intent.setDataAndType(targetUri, "application/pdf");
+    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+    startActivity(intent);
+}
 
 
     public static PdfPTable createFirstTable(ArrayList<String> description, String Name, final String Contact, String Email, String Subject, ArrayList<String> thickness, ArrayList<String> color, ArrayList<String> qty, ArrayList<String> rate, ArrayList<String> amount ) {
@@ -535,6 +558,9 @@ return view;
             sum = sum + Integer.parseInt(amount.get(i));
             if(i==amount.size()-1)
                 tax=valueOf(tax) *sum;
+
+
+
         }
         table.addCell(String.valueOf(sum));
 

@@ -5,6 +5,8 @@
     tools:context="Fragments.Catalogue">
 
     <!-- TODO: Update blank fragment layout -->
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -13,7 +15,7 @@
             android:id="@+id/text1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20sp"
+            android:paddingTop="20sp"
             android:text="We are not having catalogue in our App right now . Please visit the website for catalogue"
             android:textSize="20dp"
             android:textStyle="bold" />
@@ -22,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/catalogue"
             android:layout_centerVertical="true"
             android:layout_below="@id/text1"
@@ -31,12 +33,15 @@
 
         <Button
             android:id="@+id/button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@color/colorAccent"
+            android:textColor="@android:color/black"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:text="Website"
             android:textSize="20dp" />
-    </RelativeLayout>
 
+
+    </RelativeLayout>
 </FrameLayout>

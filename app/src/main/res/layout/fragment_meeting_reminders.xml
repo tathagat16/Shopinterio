@@ -9,11 +9,13 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
+
+
 <CalendarView
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:id="@+id/cal"
-    android:padding="20dp">
+    android:padding="5dp">
 </CalendarView>
 
         <TextView
@@ -25,13 +27,18 @@
             android:layout_height="wrap_content" />
 
 <Button
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:textAlignment="center"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
     android:layout_alignParentBottom="true"
+    android:background="@color/colorAccent"
+    android:textColor="@android:color/black"
+    android:textSize="20dp"
+    android:padding="30dp"
     android:id="@+id/calender"
-    android:padding="5dp"
     android:text="Calender"/>
+
+
 </RelativeLayout>
 </FrameLayout>

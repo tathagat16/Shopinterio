@@ -80,4 +80,5 @@
     <string name="title_activity_gps_location">Map</string>
     <string name="title_activity_maps">Map</string>
     <string name="request_lcation" />
+    <string name="title_activity_user_profile">UserProfileActivity</string>
 </resources>

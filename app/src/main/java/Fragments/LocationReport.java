@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.application.shopinterio.R;
@@ -35,6 +36,7 @@ public class LocationReport extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     StringBuilder data =new StringBuilder();
+    private ProgressBar progressBar;
 
 
     // TODO: Rename and change types of parameters
@@ -85,6 +87,7 @@ public class LocationReport extends Fragment {
         View view =inflater.inflate(R.layout.fragment_location_report, container, false);
 
         Button bt1 = (Button) view.findViewById(R.id.fetch);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
        final TextView tv;
         tv=view.findViewById(R.id.tv);
@@ -92,6 +95,7 @@ public class LocationReport extends Fragment {
         bt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
                 String email = mAuth.getCurrentUser().getEmail();
                 DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("Attendance").document(email);
@@ -103,7 +107,7 @@ public class LocationReport extends Fragment {
                         if (task.isSuccessful()) {
                             data.setLength(0);
                             for (DocumentSnapshot doc : task.getResult()) {
-                                data.append(doc.getString("location")).append(" ").append(doc.getString("time")).append("\n");
+                                data.append("Time:").append(doc.getString("time")).append("\nLocation: ").append(doc.getString("location")).append("\n\n\n");
 
                             }
 
@@ -113,6 +117,7 @@ public class LocationReport extends Fragment {
                         }
                     }
                 });
+                progressBar.setVisibility(View.INVISIBLE);
 
             }
         });

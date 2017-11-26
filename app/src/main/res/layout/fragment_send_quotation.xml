@@ -3,7 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="Fragments.SendQuotation">
-
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.06"
+        android:layout_marginBottom="20dp">
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/LinearLayout02"
@@ -67,28 +73,28 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true" />
 
-
-        <ScrollView
-            android:id="@+id/scrollView"
-            android:layout_marginTop="10dp"
-            android:layout_width="fill_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.06"
+            android:text=""/>
 
 
-            android:layout_marginBottom="20dp">
+
 
             <LinearLayout
                 android:id="@+id/LinearLayout01"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-
                 android:orientation="vertical" >
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
 
                 <EditText
                     android:id="@+id/description"
-                    android:hint="Description"
+                    android:hint="Item Description"
                     android:layout_width="match_parent"
                     android:layout_marginTop="10dp"
                     android:layout_height="50dp" />
@@ -128,7 +134,7 @@
 
             </LinearLayout>
 
-        </ScrollView>
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -139,25 +145,31 @@
 
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/buttonCreatePdf"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/black"
                 android:layout_marginLeft="25dp"
+                android:textSize="20dp"
                 android:layout_marginTop="40dp"
                 android:layout_toEndOf="@+id/addData"
-                android:onClick="createPDF"
+
                 android:text="@string/create_pdf" />
 
             <Button
                 android:id="@+id/addData"
                 android:layout_width="150dp"
+                android:background="@color/colorAccent"
+                android:textSize="20dp"
+                android:textColor="@android:color/black"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
 
                 android:layout_marginTop="40dp"
-                android:text="Add" />
+                android:text="Add Item" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -165,13 +177,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignStart="@+id/addData"
-
-                android:text="Click the add button to add the items" />
+                android:text="Press add button to add the items in quotation" />
 
 
         </RelativeLayout>
 
     </LinearLayout>
 
-
+    </ScrollView>
 </FrameLayout>

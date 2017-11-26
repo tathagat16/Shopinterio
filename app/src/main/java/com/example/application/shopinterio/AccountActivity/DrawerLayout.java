@@ -4,13 +4,11 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +18,6 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.application.shopinterio.MainActivity;
 import com.example.application.shopinterio.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,20 +28,15 @@ import Fragments.LocationReport;
 import Fragments.MeetingDetails;
 import Fragments.MeetingReminders;
 import Fragments.SendQuotation;
-import Fragments.ShareLocation;
 import Fragments.SignOut;
+import Fragments.UserProfile;
 import Fragments.VisitingCards;
 import Fragments.WorkReport;
 
-import static com.example.application.shopinterio.R.id.auto;
 import static com.example.application.shopinterio.R.id.drawer;
-import static com.example.application.shopinterio.R.id.email;
-import static com.example.application.shopinterio.R.id.nav_attendance;
 import static com.example.application.shopinterio.R.id.nv;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,8 +132,8 @@ public class DrawerLayout extends AppCompatActivity {
                 fragmentClass= SendQuotation.class;
                 break;
 
-            case R.id.nav_shareLocation:
-                fragmentClass= ShareLocation.class;
+            case R.id.nav_userProfile:
+                fragmentClass= UserProfile.class;
                 break;
 
             case R.id.nav_visitingCards:

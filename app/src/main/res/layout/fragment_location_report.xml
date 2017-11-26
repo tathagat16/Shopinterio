@@ -8,36 +8,48 @@
 
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <Button
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Fetch"
-                android:layout_centerInParent="true"
-                android:padding="20dp"
-                android:id="@+id/fetch"/>
-
+                android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/fetch"
+                android:layout_alignParentTop="true"
                 android:fontFamily="sans-serif-smallcaps"
                 android:padding="10dp"
                 android:text=" "
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp" />
+            </ScrollView>
 
-        </LinearLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fetch"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/black"
+                android:textSize="20dp"
+                android:padding="30dp"
+                android:id="@+id/fetch"/>
 
+        </RelativeLayout>
 
-    </ScrollView>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center|top"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="162dp"
+        tools:ignore="MissingConstraints" />
 
 </FrameLayout>

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.application.shopinterio.R;
@@ -35,6 +36,7 @@ public class WorkReport extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     StringBuilder data =new StringBuilder();
+    private ProgressBar progressBar;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -82,6 +84,8 @@ public class WorkReport extends Fragment {
         View v =inflater.inflate(R.layout.fragment_location_report, container, false);
 
         Button bt1 = (Button) v.findViewById(R.id.fetch);
+        progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
+
 
         final TextView tv;
         tv=v.findViewById(R.id.tv);
@@ -89,7 +93,7 @@ public class WorkReport extends Fragment {
         bt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                progressBar.setVisibility(View.VISIBLE);
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
                 String email = mAuth.getCurrentUser().getEmail();
                 DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("meetingDetails").document(email);
@@ -111,7 +115,7 @@ public class WorkReport extends Fragment {
                         }
                     }
                 });
-
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
     return v;

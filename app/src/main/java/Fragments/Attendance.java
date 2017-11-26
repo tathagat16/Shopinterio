@@ -185,7 +185,7 @@ public class Attendance extends Fragment {
 
     public  void getAddress(double lat,double lon) throws IOException{
 
-        Toast.makeText(getActivity(), "Function called with value" + lat + ", " +lon, Toast.LENGTH_SHORT).show();
+
 
 
       //  DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
@@ -195,9 +195,6 @@ public class Attendance extends Fragment {
         // DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("Attendance").document("gX5HcJAZUKistr4JC8mn");
         String email = mAuth.getCurrentUser().getEmail();
         DocumentReference mColRef = FirebaseFirestore.getInstance().collection("Attendance").document(email);
-        Toast.makeText(getActivity(), "Document found", Toast.LENGTH_SHORT).show();
-
-        Toast.makeText(getActivity(),"inside func  : "+lat+" ," +lon,Toast.LENGTH_SHORT).show();
 
         Geocoder geocoder;
         geocoder = new Geocoder(getContext(), Locale.getDefault());
@@ -229,7 +226,7 @@ public class Attendance extends Fragment {
         mColRef.collection("all").document().set(dataToSave).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Location Saved", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

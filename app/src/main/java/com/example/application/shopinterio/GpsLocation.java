@@ -45,7 +45,7 @@ public class GpsLocation implements LocationListener {
                 lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 6000,10,this);
                  loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                  if(loc!=null) {
-                     Toast.makeText(context, "GPS", Toast.LENGTH_LONG).show();
+                     //Toast.makeText(context, "GPS", Toast.LENGTH_LONG).show();
                      return loc;
                  }
 
@@ -54,7 +54,7 @@ public class GpsLocation implements LocationListener {
                 loc=lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 if(loc!=null)
                 {
-                    Toast.makeText(context,"Network",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(context,"Network",Toast.LENGTH_LONG).show();
                     return loc;
                 }
 
@@ -62,14 +62,19 @@ public class GpsLocation implements LocationListener {
                 loc=lm.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
                 if(loc!=null)
                 {
-                    Toast.makeText(context,"Passive",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(context,"Passive",Toast.LENGTH_LONG).show();
                     return loc;
                 }
-                if(!isGPSEnabled) {
-                    Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    this.context.startActivity(i);
-                    Log.e("sec", "errpr");
+
+                if(loc==null){
+                    if(!isGPSEnabled) {
+                        Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        this.context.startActivity(i);
+                        Toast.makeText(context, "Enable GPS in high mode", Toast.LENGTH_LONG).show();
+                        Log.e("sec", "errpr");
+                    }
                 }
+
 
         }catch (Exception e){
             e.printStackTrace();
