@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.application.shopinterio.R;
 import com.example.application.shopinterio.UserProfileActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -102,13 +103,14 @@ public class UserProfile extends Fragment {
             @Override
             public void onSuccess(Uri uri) {
 
-                Picasso.with(getActivity()).load(uri).fit().centerCrop()
-                        .into(userProfile);
+                Glide.with(getContext()).load(uri).into(userProfile);
 
 
                 mProgressDialogue.dismiss();
             }
         });
+
+
     }
 
     @Override
