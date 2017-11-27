@@ -105,7 +105,7 @@ public class WorkReport extends Fragment {
                         if (task.isSuccessful()) {
                                     data.setLength(0);
                             for (DocumentSnapshot doc : task.getResult()) {
-                                data.append("Meeting by: ").append(doc.getString("yourName")).append("\nClient: ").append(doc.getString("clientName")).append("\nVenue: ").append(doc.getString("meetingVenue")).append("\nRemarks: ").append(doc.getString("remarks")).append("\n\n\n");
+                                data.append("Meeting by: ").append(doc.getString("yourName")).append("\nClient: ").append(doc.getString("clientName")).append("\nVenue: ").append(doc.getString("meetingVenue")).append("\nTime: ").append(doc.getString("time")).append("\nRemarks: ").append(doc.getString("remarks")).append("\n\n\n");
 
                             }
 

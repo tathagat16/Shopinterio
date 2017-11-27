@@ -24,6 +24,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.sql.Time;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -131,12 +133,14 @@ public class MeetingDetails extends Fragment {
                 DocumentReference mColRef = FirebaseFirestore.getInstance().collection("meetingDetails").document(email);
 
 
+                String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
 
                 Map<String, Object> dataToSave = new HashMap<String, Object>();
                 dataToSave.put("clientName",client);
                 dataToSave.put("meetingVenue",venue);
                 dataToSave.put("remarks",details);
                 dataToSave.put("yourName",name);
+                dataToSave.put("time",mydate);
                 mColRef.collection("all").document().set(dataToSave).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

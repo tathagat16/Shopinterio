@@ -69,6 +69,8 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
+
+import static android.support.annotation.Dimension.PX;
 import static com.example.application.shopinterio.R.id.client_name;
 
 import com.itextpdf.text.pdf.XfaForm;
@@ -325,17 +327,22 @@ return v;
             try {
 
 
-                Drawable d = getResources().getDrawable(R.drawable.top);
+                Drawable d = getResources().getDrawable(R.drawable.h3);
 
                 BitmapDrawable bitDw = ((BitmapDrawable) d);
+
 
                 Bitmap bmp = bitDw.getBitmap();
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
+
                 bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
 
                 Image image = Image.getInstance(stream.toByteArray());
+                image.setScaleToFitLineWhenOverflow(true);
+                image.scaleAbsolute(520,100);
+                image.setScaleToFitHeight(true);
 
                 doc.add(image);
 
@@ -351,7 +358,7 @@ return v;
             try {
 
 
-                Drawable d = getResources().getDrawable(R.drawable.bottom);
+                Drawable d = getResources().getDrawable(R.drawable.b3);
 
                 BitmapDrawable bitDw = ((BitmapDrawable) d);
 
@@ -362,6 +369,10 @@ return v;
                 bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
 
                 Image image = Image.getInstance(stream.toByteArray());
+                image.setScaleToFitLineWhenOverflow(true);
+                image.scaleAbsolute(520,100);
+                image.setScaleToFitHeight(true);
+
 
                 doc.add(image);
 
@@ -369,18 +380,6 @@ return v;
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-           /* PdfReader reader = new PdfReader(outPath);
-            int n = reader.getNumberOfPages();
-            PdfImportedPage page;
-            for (int i = 1; i <= n; i++) {
-                // Only page number 2 will be included
-                if (i == 1) {
-                    page = writer.getImportedPage(reader, i);
-                    Image.getInstance(page);
-                    // here you can show image on your phone
-                }
-            }*/
 
 
             doc.close();
