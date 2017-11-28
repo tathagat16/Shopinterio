@@ -153,7 +153,7 @@ public class Attendance extends Fragment {
 
                 Location l = gt.getLocation();
                 if( l == null){
-                    Toast.makeText(getActivity().getApplicationContext(),"GPS unable to get Value. Please open GPS in High Accuracy mode",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(),"GPS unable to location. Please open GPS in High Accuracy mode",Toast.LENGTH_SHORT).show();
                 }else {
                      double lat = l.getLatitude();
                      double lon = l.getLongitude();
@@ -225,7 +225,7 @@ public class Attendance extends Fragment {
         dataToSave.put("time",currentDateTimeString);
        // mDocRef.set(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>()
 
-        mColRef.collection("all").document().set(dataToSave).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mColRef.collection("all").document(currentDateTimeString).set(dataToSave).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(getActivity(), "Location Saved", Toast.LENGTH_SHORT).show();

@@ -81,7 +81,7 @@ public class WorkReport extends Fragment {
         // Inflate the layout for this fragment
 
 
-        View v =inflater.inflate(R.layout.fragment_location_report, container, false);
+        View v =inflater.inflate(R.layout.fragment_work_report, container, false);
 
         Button bt1 = (Button) v.findViewById(R.id.fetch);
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);

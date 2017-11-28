@@ -141,7 +141,7 @@ public class MeetingDetails extends Fragment {
                 dataToSave.put("remarks",details);
                 dataToSave.put("yourName",name);
                 dataToSave.put("time",mydate);
-                mColRef.collection("all").document().set(dataToSave).addOnCompleteListener(new OnCompleteListener<Void>() {
+                mColRef.collection("all").document(mydate).set(dataToSave).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();

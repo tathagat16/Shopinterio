@@ -82,7 +82,7 @@
             android:padding="30dp"
             android:background="@color/colorAccent"
             android:text="@string/btn_login"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/white" />
 </RelativeLayout>
         <!-- Link to Login Screen -->
 <!--

@@ -33,7 +33,7 @@ public class GpsLocation implements LocationListener {
     public Location getLocation(){
         if (ContextCompat.checkSelfPermission( context, Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
             Log.e("fist","error");
-            return null;
+            //return null;
         }
         try {
             LocationManager lm = (LocationManager) context.getSystemService(LOCATION_SERVICE);
@@ -70,7 +70,7 @@ public class GpsLocation implements LocationListener {
                     if(!isGPSEnabled) {
                         Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         this.context.startActivity(i);
-                        Toast.makeText(context, "Enable GPS in high mode", Toast.LENGTH_LONG).show();
+                       // Toast.makeText(context, "Enable GPS in high mode", Toast.LENGTH_LONG).show();
                         Log.e("sec", "errpr");
                     }
                 }
@@ -97,7 +97,7 @@ public class GpsLocation implements LocationListener {
 
     @Override
     public void onProviderDisabled(String provider) {
-        Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        this.context.startActivity(i);
+        //Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        //this.context.startActivity(i);
     }
 }
