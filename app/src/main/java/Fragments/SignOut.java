@@ -1,6 +1,8 @@
 package Fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -79,16 +81,32 @@ public class SignOut extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sign_out, container, false);
 
+
+
         signOut = (Button) view.findViewById(R.id.sign_out);
         auth=FirebaseAuth.getInstance();
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                auth.signOut();
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
+
+                new AlertDialog.Builder(getContext())
+                        .setMessage("Are you sure you want to sign out?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                auth.signOut();
+                                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                                startActivity(intent);
+
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+
             }
         });
+
 
         return view;
     }

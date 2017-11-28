@@ -140,6 +140,8 @@ public class VisitingCards extends Fragment {
                     dialog.setTitle("Uploading Image");
                     dialog.show();
 
+                    String ssss = mAuth.getCurrentUser().getEmail();
+
                     StorageReference ref = mStorageRef.child(STORAGE_PATH + System.currentTimeMillis() + "." + getImageExt(imgUri)); ;
 
                     ref.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

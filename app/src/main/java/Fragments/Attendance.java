@@ -158,6 +158,7 @@ public class Attendance extends Fragment {
                      double lat = l.getLatitude();
                      double lon = l.getLongitude();
 
+
                    //Toast.makeText(getActivity(),"GPS Lat = "+lat+"\n lon = "+lon,Toast.LENGTH_LONG).show();
 
                     Intent sendingIntent = new Intent(getActivity(),MapsActivity.class);

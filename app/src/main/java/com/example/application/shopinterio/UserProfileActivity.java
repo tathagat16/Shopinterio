@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.application.shopinterio.AccountActivity.DrawerLayout;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -86,16 +87,18 @@ public class UserProfileActivity extends AppCompatActivity {
                 db.document(email).set(docData).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.e("Patient ", "Data saved");
+                        Toast.makeText(getApplicationContext(),"Profile Updated",Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e("Error ", "Data Not Saved !");
+                        Toast.makeText(getApplicationContext(),"Not able to Update Profile. Please Try again",Toast.LENGTH_SHORT).show();
                     }
                 });
 
-                startActivity(new Intent(UserProfileActivity.this, UserProfile.class));
+                Intent intent = new Intent(UserProfileActivity.this,DrawerLayout.class);
+                startActivity(intent);
+
             }
 
         });
@@ -125,7 +128,7 @@ public class UserProfileActivity extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(UserProfileActivity.this, "Phot upload Failed !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserProfileActivity.this, "Photo upload Failed !", Toast.LENGTH_SHORT).show();
                 }
             });
         }

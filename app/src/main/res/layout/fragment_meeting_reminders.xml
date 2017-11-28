@@ -18,13 +18,7 @@
     android:padding="5dp">
 </CalendarView>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:textAlignment="center"
-            android:padding="5dp"
-            android:layout_below="@id/cal"
-            android:text="We are not having Reminders in our App right now . Please goto Calender and View reminders"
-            android:layout_height="wrap_content" />
+
 
 <Button
     android:layout_width="match_parent"

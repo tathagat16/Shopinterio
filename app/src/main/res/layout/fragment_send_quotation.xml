@@ -30,13 +30,24 @@
 
 
         <EditText
+            android:id="@+id/company_name"
+            android:layout_marginTop="10dp"
+            android:layout_height="40dp"
+            android:layout_width="match_parent"
+            android:hint="Company Name"
+            android:layout_below="@+id/contact"
+            android:layout_alignStart="@+id/contact" />
+
+
+
+        <EditText
             android:id="@+id/contact"
 
             android:inputType="number"
             android:layout_marginTop="10dp"
             android:layout_height="40dp"
             android:layout_width="match_parent"
-            android:hint="@string/contact"
+            android:hint="Client's Contact"
             android:layout_below="@+id/client_name"
             android:layout_alignStart="@+id/client_name" />
 
@@ -47,7 +58,7 @@
             android:inputType="textEmailAddress"
             android:layout_height="40dp"
             android:layout_width="match_parent"
-            android:hint="@string/emailEnter"
+            android:hint="Client's Email"
             android:layout_below="@+id/contact"
             android:layout_alignStart="@+id/contact" />
 

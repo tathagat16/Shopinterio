@@ -36,27 +36,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
-import android.support.annotation.IntegerRes;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -73,23 +54,17 @@ import com.itextpdf.text.pdf.PdfWriter;
 import static android.support.annotation.Dimension.PX;
 import static com.example.application.shopinterio.R.id.client_name;
 
+
 import com.itextpdf.text.pdf.XfaForm;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
 
-
+import static com.example.application.shopinterio.R.id.company_name;
 import static java.lang.Double.valueOf;
 import static java.security.AccessController.getContext;
 
@@ -267,30 +242,45 @@ return v;
 
     public void createPDF(View view) {
 
+
+
         EditText name = (EditText) view.findViewById(client_name);
         EditText contact = (EditText) view.findViewById(R.id.contact);
         EditText email = (EditText) view.findViewById(R.id.email);
         EditText subject = (EditText) view.findViewById(R.id.subject);
+        EditText company = (EditText) view.findViewById(company_name);
+
+
 
 
         String Name = name.getText().toString();
         String Contact = contact.getText().toString();
         String Email = email.getText().toString();
         String Subject = subject.getText().toString();
+        String Company = company.getText().toString();
+
+
+
         if (TextUtils.isEmpty(Name)) {
             name.setError("Enter Client Name");
             name.requestFocus();
             return;
         }
 
+        if (TextUtils.isEmpty(Company)) {
+            name.setError("Enter Company Name");
+            name.requestFocus();
+            return;
+        }
+
         if (TextUtils.isEmpty(Contact)) {
-            contact.setError("Enter Contact");
+            contact.setError("Enter Client's Contact");
             contact.requestFocus();
             return;
         }
 
         if (TextUtils.isEmpty(Email)) {
-            email.setError("Enter Email");
+            email.setError("Enter Client's Email");
             email.requestFocus();
             return;
         }
@@ -352,7 +342,7 @@ return v;
             }
 
 
-            doc.add(createFirstTable(description, Name, Contact, Email, Subject, thickness, color, qty, rate, amount));
+            doc.add(createFirstTable(description, Name, Contact, Email, Subject, thickness, color, qty, rate, amount,Company));
 
 
             try {
@@ -415,10 +405,12 @@ public void viewPdf(String outPath,String docname){
 }
 
 
-    public static PdfPTable createFirstTable(ArrayList<String> description, String Name, final String Contact, String Email, String Subject, ArrayList<String> thickness, ArrayList<String> color, ArrayList<String> qty, ArrayList<String> rate, ArrayList<String> amount ) {
+    public static PdfPTable createFirstTable(ArrayList<String> description, String Name, final String Contact, String Email, String Subject, ArrayList<String> thickness, ArrayList<String> color, ArrayList<String> qty, ArrayList<String> rate, ArrayList<String> amount,String Company ) {
 
-        String Date = new SimpleDateFormat("dd/MM/YYYY", Locale.ROOT).format(new Date());
-        String Quote = new SimpleDateFormat("YYYYMMddHHmmss", Locale.ROOT).format(new Date());
+        String Date = new SimpleDateFormat("dd/MM/yyyy", Locale.ROOT).format(new Date());
+        String Quote = new SimpleDateFormat("yyyyMMddHHmmss", Locale.ROOT).format(new Date());
+        FirebaseAuth mAuth= FirebaseAuth.getInstance();
+        String makerEmail = mAuth.getCurrentUser().getEmail();
 
         PdfPTable table = new PdfPTable(10); //total colums goes here
         PdfPCell cell;
@@ -442,31 +434,31 @@ public void viewPdf(String outPath,String docname){
 
 
         //////////////////////////////////
-        cell = new PdfPCell(new Phrase("Quote number:  RM- "+ Quote));
+        cell = new PdfPCell(new Phrase("Quote number:  APP- "+ Quote));
         cell.setColspan(5);
         table.addCell(cell);
 
-        cell = new PdfPCell(new Phrase("Mobile No.: "+ Contact ));
-        cell.setColspan(5);
-        table.addCell(cell);
-
-
-        //////////////////////////////////
-        cell = new PdfPCell(new Phrase("Company Name and address: "));
-        cell.setColspan(5);
-        table.addCell(cell);
-
-        cell = new PdfPCell(new Phrase("Email Id: " +Email ));
+        cell = new PdfPCell(new Phrase("Client Mobile No.: "+ Contact ));
         cell.setColspan(5);
         table.addCell(cell);
 
 
         //////////////////////////////////
-        cell = new PdfPCell(new Phrase("Tanmay Traders "));
+        cell = new PdfPCell(new Phrase("Company Name and Address : "));
         cell.setColspan(5);
         table.addCell(cell);
 
-        cell = new PdfPCell(new Phrase("Site Address"));
+        cell = new PdfPCell(new Phrase("Client Email Id: " +Email ));
+        cell.setColspan(5);
+        table.addCell(cell);
+
+
+        //////////////////////////////////
+        cell = new PdfPCell(new Phrase(Company));
+        cell.setColspan(5);
+        table.addCell(cell);
+
+        cell = new PdfPCell(new Phrase("Quoation Generated By: " +makerEmail));
         cell.setColspan(5);
         table.addCell(cell);
 

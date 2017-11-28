@@ -54,6 +54,10 @@ public class DrawerLayout extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer_layout);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.flcontent, new UserProfile())
+                .commit();
         if(checkRunTimePermission());
 
         auth = FirebaseAuth.getInstance();
@@ -64,7 +68,7 @@ public class DrawerLayout extends AppCompatActivity {
         t=(TextView) findViewById(R.id.mail);
         String s = auth.getCurrentUser().getEmail();
 
-        t.setText(s);
+        t.setText("Signed in as "+s);
 
 
         authListener = new FirebaseAuth.AuthStateListener() {
@@ -85,6 +89,7 @@ public class DrawerLayout extends AppCompatActivity {
         mToggle= new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
        NavigationView nvDrawer= (NavigationView) findViewById(nv);
+
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
        setupDrawerContent(nvDrawer);
@@ -148,7 +153,7 @@ public class DrawerLayout extends AppCompatActivity {
                 fragmentClass= SignOut.class;
                 break;
             default:
-                fragmentClass=Attendance.class;
+                fragmentClass= UserProfile.class;
         }
 
         try{
@@ -220,6 +225,7 @@ public class DrawerLayout extends AppCompatActivity {
         int permissionFLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
         int permissionCLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
         int permissionExternal = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int permissionCalen = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALENDAR);
 
 
         List<String> listPermissionsNeeded = new ArrayList<>();
@@ -232,6 +238,14 @@ public class DrawerLayout extends AppCompatActivity {
         if (permissionExternal != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
+
+        if (permissionExternal != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (permissionCalen != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_CALENDAR);
+        }
+
         if (!listPermissionsNeeded.isEmpty()) {
             ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),11111);
             return false;
