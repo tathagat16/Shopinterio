@@ -8,6 +8,7 @@
     <string name="subject">Subject</string>
     <string name="Tax_option">Select Tax</string>
 
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBF4eXe59mhyEUvTxcE8TD5L9zznQFI3eA</string>
 
     <string-array name="Tax">
         <item>Select Tax</item>

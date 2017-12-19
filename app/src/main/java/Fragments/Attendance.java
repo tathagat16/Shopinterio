@@ -34,10 +34,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.application.shopinterio.GpsLocation;
-import com.example.application.shopinterio.MainActivity;
-import com.example.application.shopinterio.MapsActivity;
-import com.example.application.shopinterio.R;
+import com.nish.application.shopinterio.GpsLocation;
+import com.nish.application.shopinterio.MainActivity;
+import com.nish.application.shopinterio.MapsActivity;
+import com.nish.application.shopinterio.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

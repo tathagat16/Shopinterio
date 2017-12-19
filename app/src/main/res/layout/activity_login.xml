@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.application.shopinterio.AccountActivity.LoginActivity">
+    tools:context="com.nish.application.shopinterio.AccountActivity.LoginActivity">
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">

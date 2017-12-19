@@ -24,8 +24,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.application.shopinterio.MainActivity;
-import com.example.application.shopinterio.R;
+import com.nish.application.shopinterio.MainActivity;
+import com.nish.application.shopinterio.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -52,7 +52,7 @@ import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import static android.support.annotation.Dimension.PX;
-import static com.example.application.shopinterio.R.id.client_name;
+import static com.nish.application.shopinterio.R.id.client_name;
 
 
 import com.itextpdf.text.pdf.XfaForm;
@@ -64,7 +64,7 @@ import java.util.Date;
 import java.util.Locale;
 
 
-import static com.example.application.shopinterio.R.id.company_name;
+import static com.nish.application.shopinterio.R.id.company_name;
 import static java.lang.Double.valueOf;
 import static java.security.AccessController.getContext;
 

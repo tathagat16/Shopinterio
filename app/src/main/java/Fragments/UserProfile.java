@@ -15,8 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.application.shopinterio.R;
-import com.example.application.shopinterio.UserProfileActivity;
+import com.nish.application.shopinterio.R;
+import com.nish.application.shopinterio.UserProfileActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:756928965996:android:ac67a83a1df1adef",
         "android_client_info": {
-          "package_name": "com.example.application.shopinterio"
+          "package_name": "com.nish.application.shopinterio"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "756928965996-dire0kgqb3dlb5mkhfl37df7t88f2hhq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.application.shopinterio",
+            "package_name": "com.nish.application.shopinterio",
             "certificate_hash": "39198ae89ace4986dc1ad9f7a6a2a96b5ec6a043"
           }
         },

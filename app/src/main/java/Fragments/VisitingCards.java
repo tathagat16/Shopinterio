@@ -20,9 +20,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.application.shopinterio.ImageUpload;
-import com.example.application.shopinterio.R;
-import com.example.application.shopinterio.imageListActivity;
+import com.nish.application.shopinterio.ImageUpload;
+import com.nish.application.shopinterio.R;
+import com.nish.application.shopinterio.imageListActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;

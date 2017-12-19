@@ -12,9 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.application.shopinterio.AccountActivity.LoginActivity;
-import com.example.application.shopinterio.MainActivity;
-import com.example.application.shopinterio.R;
+import com.nish.application.shopinterio.AccountActivity.LoginActivity;
+import com.nish.application.shopinterio.MainActivity;
+import com.nish.application.shopinterio.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
